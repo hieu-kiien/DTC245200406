@@ -1,0 +1,22 @@
+<%- include('partials/head') %>
+<h1>Kỹ năng</h1>
+<form method="post" action="/admin/skills" class="panel form inline">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <label>Nhóm <input name="category" maxlength="40" placeholder="Ví dụ: Giám sát" required></label>
+  <label>Tên kỹ năng <input name="name" maxlength="60" required></label>
+  <div><button class="btn btn-primary" type="submit"><%- icon('plus', 16) %> Thêm kỹ năng</button></div>
+</form>
+<div class="panel">
+<table class="tbl">
+  <thead><tr><th>Nhóm</th><th>Kỹ năng</th><th><span class="sr">Thao tác</span></th></tr></thead>
+  <tbody>
+  <% skills.forEach(function (s) { %>
+    <tr><td><%= s.category %></td><td><%= s.name %></td>
+      <td class="acts"><form method="post" action="/admin/skills/<%= s.id %>/delete" data-confirm="Xóa kỹ năng này?">
+        <input type="hidden" name="_csrf" value="<%= csrf %>">
+        <button class="btn btn-sm btn-danger" type="submit" aria-label="Xóa <%= s.name %>"><%- icon('trash', 16) %></button></form></td></tr>
+  <% }) %>
+  </tbody>
+</table>
+</div>
+<%- include('partials/foot') %>

@@ -1,0 +1,81 @@
+<%- include('partials/head') %>
+<header class="site-nav">
+  <span class="logo mono">dung.k23c</span>
+  <nav aria-label="Các phần của trang">
+    <a href="#gioi-thieu">Giới thiệu</a>
+    <a href="#ky-nang">Kỹ năng</a>
+    <a href="#du-an">Dự án</a>
+    <a href="#lien-he">Liên hệ</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <p class="eyebrow mono"><%= profile.location || 'Việt Nam' %></p>
+  <h1><%= profile.full_name %></h1>
+  <p class="lead"><%= profile.headline %></p>
+  <div class="cta">
+    <a class="btn btn-primary" href="#du-an">Xem <%= projects.length %> dự án</a>
+    <a class="btn" href="#lien-he"><%- icon('mail', 16) %> Gửi tin nhắn cho <%= profile.full_name.split(' ').pop() %></a>
+  </div>
+</section>
+
+<section id="gioi-thieu" class="block">
+  <h2>Giới thiệu</h2>
+  <div class="about">
+    <% profile.about.split('\n').filter(Boolean).forEach(function (line) { %><p><%= line %></p><% }) %>
+  </div>
+</section>
+
+<section id="ky-nang" class="block">
+  <h2>Kỹ năng</h2>
+  <dl class="skills">
+    <% Object.keys(groups).forEach(function (cat) { %>
+    <div class="skill-row">
+      <dt><%= cat %></dt>
+      <dd><% groups[cat].forEach(function (n) { %><span class="tag"><%= n %></span><% }) %></dd>
+    </div>
+    <% }) %>
+  </dl>
+</section>
+
+<section id="du-an" class="block">
+  <h2>Dự án</h2>
+  <div class="projects">
+    <% projects.forEach(function (p) { %>
+    <article class="project">
+      <p class="mono year"><%= p.year || '' %></p>
+      <h3><%= p.title %></h3>
+      <p><%= p.summary %></p>
+      <% if (p.stack) { %><p class="mono stack"><%= p.stack %></p><% } %>
+      <p class="links">
+        <% if (p.repo_url) { %><a href="<%= p.repo_url %>" rel="noopener"><%- icon('github', 16) %> Mã nguồn</a><% } %>
+        <% if (p.demo_url) { %><a href="<%= p.demo_url %>" rel="noopener"><%- icon('external', 16) %> Mở bản chạy thử</a><% } %>
+      </p>
+    </article>
+    <% }) %>
+    <% if (!projects.length) { %><p class="muted">Chưa có dự án nào được đăng.</p><% } %>
+  </div>
+</section>
+
+<section id="lien-he" class="block">
+  <h2>Liên hệ</h2>
+  <% if (sent) { %><p class="notice" role="status">Đã nhận tin nhắn. Dũng sẽ đọc trong trang quản trị và trả lời qua email bạn để lại.</p><% } %>
+  <% if (error) { %><p class="alert" role="alert"><%= error %></p><% } %>
+  <form method="post" action="/contact" class="contact">
+    <input type="hidden" name="_csrf" value="<%= csrf %>">
+    <div class="trap" aria-hidden="true"><label>Để trống ô này <input name="website" tabindex="-1" autocomplete="off"></label></div>
+    <label>Tên của bạn <input name="name" maxlength="80" value="<%= form.name || '' %>" required></label>
+    <label>Email để nhận trả lời <input name="email" type="email" maxlength="120" value="<%= form.email || '' %>" required></label>
+    <label class="wide">Nội dung <textarea name="body" rows="5" maxlength="2000" required><%= form.body || '' %></textarea></label>
+    <div class="wide"><button class="btn btn-primary" type="submit">Gửi tin nhắn</button>
+      <span class="muted small">Tin nhắn chỉ lưu trong cơ sở dữ liệu của trang này.</span></div>
+  </form>
+  <% if (profile.email || profile.github_url) { %>
+  <p class="direct">
+    <% if (profile.email) { %><a href="mailto:<%= profile.email %>"><%- icon('mail', 16) %> <%= profile.email %></a><% } %>
+    <% if (profile.github_url) { %><a href="<%= profile.github_url %>" rel="noopener"><%- icon('github', 16) %> GitHub</a><% } %>
+  </p>
+  <% } %>
+</section>
+<footer class="site-foot mono">DTC245200406 · Đề 13 · Triển khai và Quản trị Hệ thống Phần mềm</footer>
+<%- include('partials/foot') %>

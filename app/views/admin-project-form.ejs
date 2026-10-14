@@ -1,0 +1,15 @@
+<%- include('partials/head') %>
+<h1><%= title %></h1>
+<form method="post" action="<%= action %>" class="panel form">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <label class="wide">Tên dự án <input name="title" maxlength="120" value="<%= p.title || '' %>" required></label>
+  <label class="wide">Mô tả ngắn (nói dự án làm gì, không khen) <textarea name="summary" rows="4" maxlength="1000"><%= p.summary || '' %></textarea></label>
+  <label class="wide">Công nghệ (cách nhau bằng dấu phẩy) <input name="stack" maxlength="200" value="<%= p.stack || '' %>"></label>
+  <label>Liên kết mã nguồn <input name="repo_url" maxlength="300" placeholder="https://github.com/..." value="<%= p.repo_url || '' %>"></label>
+  <label>Liên kết bản chạy thử <input name="demo_url" maxlength="300" placeholder="https://..." value="<%= p.demo_url || '' %>"></label>
+  <label>Năm <input name="year" type="number" min="2000" max="2100" value="<%= p.year || '' %>"></label>
+  <label>Thứ tự hiển thị (số nhỏ lên trước) <input name="sort_order" type="number" value="<%= p.sort_order %>"></label>
+  <label class="check wide"><input type="checkbox" name="published" value="1" <%= p.published ? 'checked' : '' %>> Hiện dự án này trên trang công khai</label>
+  <div class="wide"><button class="btn btn-primary" type="submit">Lưu dự án</button> <a class="btn" href="/admin/projects">Hủy</a></div>
+</form>
+<%- include('partials/foot') %>

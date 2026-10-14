@@ -1,0 +1,21 @@
+{
+  "name": "portfolio-dung",
+  "version": "1.0.0",
+  "description": "Website portfolio cá nhân của Nguyễn Đức Dũng (Đề 13, môn Triển khai và Quản trị Hệ thống Phần mềm)",
+  "private": true,
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-session": "^2.1.0",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "mysql2": "^3.11.0",
+    "prom-client": "^15.1.3"
+  }
+}

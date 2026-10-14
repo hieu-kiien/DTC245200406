@@ -1,0 +1,25 @@
+<%- include('partials/head') %>
+<div class="bar"><h1>Dự án</h1><a class="btn btn-primary" href="/admin/projects/new"><%- icon('plus', 16) %> Thêm dự án</a></div>
+<div class="panel">
+<table class="tbl">
+  <thead><tr><th>Thứ tự</th><th>Tên dự án</th><th>Năm</th><th>Trạng thái</th><th><span class="sr">Thao tác</span></th></tr></thead>
+  <tbody>
+  <% projects.forEach(function (p) { %>
+    <tr>
+      <td class="mono"><%= p.sort_order %></td>
+      <td><%= p.title %></td>
+      <td class="mono"><%= p.year || '' %></td>
+      <td><span class="tag <%= p.published ? 'tag-on' : '' %>"><%= p.published ? 'Đang hiện' : 'Đang ẩn' %></span></td>
+      <td class="acts">
+        <a class="btn btn-sm" href="/admin/projects/<%= p.id %>/edit" aria-label="Sửa <%= p.title %>"><%- icon('pencil', 16) %></a>
+        <form method="post" action="/admin/projects/<%= p.id %>/delete" data-confirm="Xóa dự án này?">
+          <input type="hidden" name="_csrf" value="<%= csrf %>">
+          <button class="btn btn-sm btn-danger" type="submit" aria-label="Xóa <%= p.title %>"><%- icon('trash', 16) %></button>
+        </form>
+      </td>
+    </tr>
+  <% }) %>
+  </tbody>
+</table>
+</div>
+<%- include('partials/foot') %>

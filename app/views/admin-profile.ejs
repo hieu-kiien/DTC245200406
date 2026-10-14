@@ -1,0 +1,14 @@
+<%- include('partials/head') %>
+<h1>Hồ sơ</h1>
+<% if (saved) { %><p class="notice" role="status">Đã lưu hồ sơ.</p><% } %>
+<form method="post" action="/admin/profile" class="panel form">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <label>Họ tên <input name="full_name" maxlength="80" value="<%= profile.full_name %>" required></label>
+  <label>Nơi ở <input name="location" maxlength="80" value="<%= profile.location %>"></label>
+  <label class="wide">Câu giới thiệu dưới tên <input name="headline" maxlength="200" value="<%= profile.headline %>"></label>
+  <label class="wide">Giới thiệu (mỗi dòng là một đoạn) <textarea name="about" rows="6" maxlength="3000"><%= profile.about %></textarea></label>
+  <label>Email công khai (để trống nếu không muốn hiện) <input name="email" type="email" maxlength="120" value="<%= profile.email %>"></label>
+  <label>Liên kết GitHub <input name="github_url" maxlength="300" placeholder="https://github.com/..." value="<%= profile.github_url %>"></label>
+  <div class="wide"><button class="btn btn-primary" type="submit">Lưu hồ sơ</button></div>
+</form>
+<%- include('partials/foot') %>

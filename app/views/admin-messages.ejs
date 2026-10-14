@@ -1,0 +1,20 @@
+<%- include('partials/head') %>
+<h1>Tin nhắn</h1>
+<% if (!messages.length) { %><p class="panel muted">Chưa có ai nhắn.</p><% } %>
+<% messages.forEach(function (m) { %>
+<article class="panel msg <%= m.read_at ? '' : 'unread' %>">
+  <p><strong><%= m.name %></strong> <span class="mono muted"><%= m.email %></span>
+     <span class="mono muted"><%= m.created_at.toISOString().slice(0,16).replace('T', ' ') %></span></p>
+  <p class="body"><%= m.body %></p>
+  <div class="acts">
+    <% if (!m.read_at) { %>
+    <form method="post" action="/admin/messages/<%= m.id %>/read"><input type="hidden" name="_csrf" value="<%= csrf %>">
+      <button class="btn btn-sm" type="submit"><%- icon('check', 16) %> Đánh dấu đã đọc</button></form>
+    <% } %>
+    <a class="btn btn-sm" href="mailto:<%= m.email %>"><%- icon('mail', 16) %> Trả lời</a>
+    <form method="post" action="/admin/messages/<%= m.id %>/delete" data-confirm="Xóa tin nhắn này?"><input type="hidden" name="_csrf" value="<%= csrf %>">
+      <button class="btn btn-sm btn-danger" type="submit" aria-label="Xóa tin nhắn"><%- icon('trash', 16) %></button></form>
+  </div>
+</article>
+<% }) %>
+<%- include('partials/foot') %>

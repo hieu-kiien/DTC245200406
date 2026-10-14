@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= title %><%= admin ? ' · Quản trị' : '' %></title>
+  <link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body class="<%= admin ? 'is-admin' : 'is-public' %>">
+<% if (admin && user) { %>
+<header class="topbar">
+  <a class="brand" href="/admin">Quản trị portfolio</a>
+  <nav class="topnav" aria-label="Quản trị">
+    <a href="/admin">Tổng quan</a>
+    <a href="/admin/profile">Hồ sơ</a>
+    <a href="/admin/projects">Dự án</a>
+    <a href="/admin/skills">Kỹ năng</a>
+    <a href="/admin/messages">Tin nhắn</a>
+    <a href="/" target="_blank" rel="noopener">Xem trang công khai</a>
+    <form method="post" action="/admin/logout">
+      <input type="hidden" name="_csrf" value="<%= csrf %>">
+      <button class="btn btn-ghost" type="submit"><%- icon('logout', 16) %> Đăng xuất</button>
+    </form>
+  </nav>
+</header>
+<% } %>
+<main class="page">

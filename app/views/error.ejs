@@ -1,0 +1,7 @@
+<%- include('partials/head') %>
+<section class="panel narrow">
+  <h1><%= title %></h1>
+  <p><%= message %></p>
+  <p><a class="btn" href="<%= admin ? '/admin' : '/' %>"><%- icon('left', 16) %> Quay lại</a></p>
+</section>
+<%- include('partials/foot') %>

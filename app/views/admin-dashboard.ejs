@@ -1,0 +1,18 @@
+<%- include('partials/head') %>
+<h1>Tổng quan</h1>
+<div class="stats">
+  <a class="stat" href="/admin/messages"><span class="num mono"><%= c.unread %></span><span>tin nhắn chưa đọc</span></a>
+  <a class="stat" href="/admin/projects"><span class="num mono"><%= c.projects %></span><span>dự án</span></a>
+  <a class="stat" href="/admin/skills"><span class="num mono"><%= c.skills %></span><span>kỹ năng</span></a>
+</div>
+<section class="panel">
+  <h2>Tin nhắn gần nhất</h2>
+  <% if (!latest.length) { %><p class="muted">Chưa có ai nhắn.</p><% } %>
+  <% latest.forEach(function (m) { %>
+  <article class="msg <%= m.read_at ? '' : 'unread' %>">
+    <p><strong><%= m.name %></strong> <span class="mono muted"><%= m.email %></span></p>
+    <p><%= m.body.length > 160 ? m.body.slice(0, 160) + '...' : m.body %></p>
+  </article>
+  <% }) %>
+</section>
+<%- include('partials/foot') %>
